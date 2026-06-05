@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulce Capitas - Alfajores Artesanales</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <style>
+        :root {
+            --primary: #8d6e63; /* Marrón suave/Alfajor */
+            --secondary: #fff8e1; /* Crema/Maicena */
+            --accent: #ffb74d; /* Naranja dulce */
+            --text: #4e342e;
+            --whatsapp: #25D366;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; background: var(--secondary); color: var(--text); 
+        }
+
+        .container { max-width: 480px; margin: auto; background: white; min-height: 100vh; padding-bottom: 120px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        
+        header { text-align: center; padding: 20px; background: white; }
+        .logo { width: 80px; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--secondary); }
+
+        .hero-img { width: 100%; height: 250px; object-fit: cover; }
+        
+        .section-title { padding: 20px 20px 5px 20px; }
+        h1 { font-size: 24px; margin: 0; color: var(--primary); }
+        .tagline { font-size: 14px; color: #888; margin-top: 5px; }
+
+        /* Tarjetas de Producto */
+        .product-card { 
+            margin: 15px 20px; background: white; border-radius: 15px; overflow: hidden; 
+            border: 1px solid #f0e6d2; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .product-img { width: 100%; height: 180px; object-fit: cover; }
+        .product-content { padding: 15px; }
+        .product-content h3 { margin: 0; font-size: 18px; }
+        .product-content p { font-size: 13px; color: #6d4c41; margin: 8px 0; }
+        
+        .variant-select {
+            width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ddd;
+            margin-bottom: 12px; font-size: 14px; background: #fff;
+        }
+
+        .price-row { display: flex; justify-content: space-between; align-items: center; }
+        .price { font-size: 20px; font-weight: bold; color: var(--primary); }
+
+        .btn-add { 
+            background: var(--primary); color: white; border: none; padding: 10px 18px;
+            border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .btn-add:active { transform: scale(0.95); }
+
+        /* Carrito Flotante */
+        #cart-counter {
+            position: fixed; top: 15px; right: 15px; background: var(--primary); color: white;
+            padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 13px;
+            z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer;
+        }
+
+        /* Modal */
+        #modal-cart {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(78, 52, 46, 0.8); z-index: 2000; justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: white; width: 85%; max-width: 380px; border-radius: 20px; padding: 25px;
+        }
+        .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+        .remove { color: #e57373; margin-left: 10px; cursor: pointer; font-weight: bold; }
+
+        #cta-fijo {
+            position: fixed; bottom: 0; width: 100%; max-width: 480px;
+            background: white; padding: 15px 20px; box-sizing: border-box;
+            border-top: 1px solid #eee; z-index: 999;
+        }
+        .btn-send {
+            background: var(--whatsapp); color: white; text-align: center; padding: 15px;
+            border-radius: 12px; font-weight: bold; cursor: pointer; border: none; width: 100%; font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="cart-counter" onclick="toggleModal(true)">🛒 <span id="items-count">0</span></div>
+
+<div class="container">
+    <header>
+        <img src="logo.jpg" class="logo" alt="Dulce Capitas">
+        <h1>Dulce Capitas</h1>
+        <p class="tagline">Alfajores artesanales hechos con amor</p>
+    </header>
+
+    <div class="section-title">
+        <h2>Nuestras Presentaciones</h2>
+    </div>
+
+    <!-- PRODUCTO 1 -->
+    <div class="product-card">
+        <img src="imagen1.jpg" class="product-img">
+        <div class="product-content">
+            <h3>Taper de Mini Alfajores</h3>
+            <p>Perfectos para compartir o calmar el antojo.</p>
+            <select class="variant-select" id="v1">
+                <option value="Clásico">Versión: Clásico</option>
+                <option value="Chía">Versión: Chía</option>
+                <option value="Chocolate">Versión: Chocolate</option>
+            </select>
+            <div class="price-row">
+                <span class="price">S/ 6.00</span>
+                <button class="btn-add" onclick="add(1, 'Mini Alfajores', 6, 'v1')">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTO 2 -->
+    <div class="product-card">
+        <img src="imagen2.jpg" class="product-img">
+        <div class="product-content">
+            <h3>Caja de 4 Alfajores</h3>
+            <p>Tamaño ideal para un detalle especial.</p>
+            <select class="variant-select" id="v2">
+                <option value="Clásico">Versión: Clásico</option>
+                <option value="Chía">Versión: Chía</option>
+                <option value="Chocolate">Versión: Chocolate</option>
+            </select>
+            <div class="price-row">
+                <span class="price">S/ 10.00</span>
+                <button class="btn-add" onclick="add(2, 'Caja x4 Alfajores', 10, 'v2')">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTO 3 -->
+    <div class="product-card">
+        <img src="imagen3.jpg" class="product-img">
+        <div class="product-content">
+            <h3>Caja Personalizada (30x30)</h3>
+            <p>Tus alfajores favoritos en gran formato.</p>
+            <select class="variant-select" id="v3">
+                <option value="Clásico">Versión: Clásico</option>
+                <option value="Chía">Versión: Chía</option>
+                <option value="Chocolate">Versión: Chocolate</option>
+            </select>
+            <div class="price-row">
+                <span class="price">S/ 35.00</span>
+                <button class="btn-add" onclick="add(3, 'Caja Personalizada', 35, 'v3')">Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTO 4 -->
+    <div class="product-card">
+        <img src="imagen4.jpg" class="product-img">
+        <div class="product-content">
+            <h3>Caja de 8 Bombones</h3>
+            <p>Chocolate premium con frutos secos seleccionados.</p>
+            <div class="price-row" style="margin-top:40px;">
+                <span class="price">S/ 20.00</span>
+                <button class="btn-add" onclick="add(4, 'Caja de Bombones', 20, null)">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- SECCIÓN CORPORATIVA / PERSONALIZADOS -->
+<div class="section" style="padding: 10px 20px;">
+    <div class="box" style="border: 2px dashed var(--primary); background: #fffcf5; padding: 20px; border-radius: 15px; text-align: center;">
+        <h3 style="margin-top: 0; color: var(--primary);">💼 Pedidos Corporativos</h3>
+        <p style="font-size: 14px; margin-bottom: 15px;">
+            Personalizamos tus empaques con el <strong>sticker de tu logo o marca</strong>. 
+            <br><span style="color: #d84315; font-weight: bold;">Precios especiales por volumen.</span>
+        </p>
+        
+        <a href="https://wa.me/51990582170?text=Hola%20Dulce%20Capitas,%20me%20interesa%20información%20sobre%20pedidos%20personalizados%20para%20mi%20empresa" 
+           target="_blank" 
+           style="display: inline-block; background: var(--text); color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 14px;">
+            Consultar Cotización Pro
+        </a>
+    </div>
+</div>
+<div id="modal-cart">
+    <div class="modal-content">
+        <h3 style="margin-top:0">Tu Pedido</h3>
+        <div id="cart-list"></div>
+        <div style="margin-top:20px; font-size:18px; display:flex; justify-content:space-between">
+            <strong>Total:</strong>
+            <strong id="modal-total">S/ 0</strong>
+        </div>
+        <button class="btn-send" style="margin-top:20px" onclick="send()">Pedir por WhatsApp</button>
+        <p onclick="toggleModal(false)" style="text-align:center; color:#888; font-size:13px; margin-top:15px; cursor:pointer">Seguir eligiendo</p>
+    </div>
+</div>
+
+<div id="cta-fijo">
+    <button class="btn-send" onclick="toggleModal(true)">
+        Ver Pedido (<span id="cta-total">S/ 0</span>)
+    </button>
+</div>
+
+<script>
+    let cart = [];
+    function add(id, name, price, variantId) {
+        const variant = variantId ? document.getElementById(variantId).value : '';
+        cart.push({ id: Date.now(), name: `${name} (${variant})`, price });
+        update();
+    }
+    function remove(id) {
+        cart = cart.filter(i => i.id !== id);
+        update();
+        if(cart.length === 0) toggleModal(false);
+    }
+    function update() {
+        let total = cart.reduce((s, i) => s + i.price, 0);
+        document.getElementById('items-count').innerText = cart.length;
+        document.getElementById('cta-total').innerText = 'S/ ' + total.toFixed(2);
+        document.getElementById('modal-total').innerText = 'S/ ' + total.toFixed(2);
+        document.getElementById('cart-list').innerHTML = cart.map(i => `
+            <div class="cart-item">
+                <span>${i.name}</span>
+                <span>S/ ${i.price} <span class="remove" onclick="remove(${i.id})">✕</span></span>
+            </div>
+        `).join('');
+    }
+    function toggleModal(s) { document.getElementById('modal-cart').style.display = s ? 'flex' : 'none'; }
+    function send() {
+        if(cart.length === 0) return;
+        const total = cart.reduce((s, i) => s + i.price, 0);
+        let msg = "¡Hola Dulce Capitas! 🍯 Quiero hacer un pedido:\n\n" + cart.map((i, idx) => `- ${i.name}: S/ ${i.price}`).join('\n');
+        msg += `\n\n*Total: S/ ${total.toFixed(2)}*`;
+        window.open(`https://wa.me/51990582170?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+</script>
+</body>
+</html>
