@@ -1,14 +1,3 @@
-Aquí tienes el código corregido y optimizado.
-
-### Cambios realizados:
-
-* **Logo centrado y responsivo:** Se envolvió el logo en un contenedor con `text-align: center` y se ajustaron sus márgenes para que no dependa del flujo del texto.
-* **Imágenes optimizadas para celular:** Se corrigió una doble comilla rota en el HTML del producto 2 (`src="...imagen2.jpg""`) que rompía la carga de la imagen. Además, se aseguró que todas las imágenes mantengan su proporción, estén centradas y no se deformen en pantallas pequeñas mediante `display: block` y `margin: 0 auto`.
-* **Revisión del Favicon:** La sintaxis actual es perfectamente correcta (`type="image/png"` con `rel="icon"`). Solo asegúrate de que la URL externa (`https://qrdigital.github.io/dulcecapitas/favicon.png`) esté activa y subida en tu repositorio de GitHub Pages.
-
----
-
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,6 +14,8 @@ Aquí tienes el código corregido y optimizado.
             --whatsapp: #25D366;
         }
 
+        *, *::before, *::after { box-sizing: border-box; }
+
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; background: var(--secondary); color: var(--text); 
@@ -33,35 +24,20 @@ Aquí tienes el código corregido y optimizado.
         .container { max-width: 480px; margin: auto; background: white; min-height: 100vh; padding-bottom: 120px; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
         
         header { text-align: center; padding: 20px; background: white; }
-        
-        /* Contenedor del logo para asegurar centrado perfecto */
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .logo { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 2px solid var(--secondary); }
+        .logo { width: 80px; border-radius: 50%; margin-bottom: 10px; border: 2px solid var(--secondary); }
 
         .hero-img { width: 100%; height: 250px; object-fit: cover; }
         
-        .section-title { padding: 20px 20px 5px 20px; text-align: center; }
+        .section-title { padding: 20px 20px 5px 20px; }
         h1 { font-size: 24px; margin: 0; color: var(--primary); }
         .tagline { font-size: 14px; color: #888; margin-top: 5px; }
 
         /* Tarjetas de Producto */
         .product-card { 
-            margin: 15px 20px; background: white; border-radius: 15px; overflow: hidden; 
+            margin: 12px; background: white; border-radius: 15px; overflow: hidden; 
             border: 1px solid #f0e6d2; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
-        /* Ajuste de imágenes optimizadas para móviles */
-        .product-img { 
-            width: 100%; 
-            height: 200px; 
-            object-fit: cover; 
-            display: block;
-            margin: 0 auto;
-        }
+        .product-img { width: 100%; height: 180px; object-fit: cover; }
         .product-content { padding: 15px; }
         .product-content h3 { margin: 0; font-size: 18px; }
         .product-content p { font-size: 13px; color: #6d4c41; margin: 8px 0; }
@@ -71,7 +47,7 @@ Aquí tienes el código corregido y optimizado.
             margin-bottom: 12px; font-size: 14px; background: #fff;
         }
 
-        .price-row { display: flex; justify-content: space-between; align-items: center; }
+        .price-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
         .price { font-size: 20px; font-weight: bold; color: var(--primary); }
 
         .btn-add { 
@@ -107,7 +83,20 @@ Aquí tienes el código corregido y optimizado.
             background: var(--whatsapp); color: white; text-align: center; padding: 15px;
             border-radius: 12px; font-weight: bold; cursor: pointer; border: none; width: 100%; font-size: 16px;
         }
-    </style>
+    
+        @media (max-width: 360px) {
+            .product-card { margin: 8px; }
+            .product-content { padding: 12px; }
+            .price-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-add {
+                width: 100%;
+            }
+        }
+
+</style>
 </head>
 <body>
 
@@ -115,9 +104,7 @@ Aquí tienes el código corregido y optimizado.
 
 <div class="container">
     <header>
-        <div class="logo-container">
-            <img src="https://qrdigital.github.io/dulcecapitas/logo.jpg" class="logo" alt="Logo Dulce Capitas"> 
-        </div>
+        <img src="https://qrdigital.github.io/dulcecapitas/logo.jpg"> 
         <h1>Dulce Capitas</h1>
         <p class="tagline">Alfajores artesanales hechos con amor</p>
     </header>
@@ -126,8 +113,9 @@ Aquí tienes el código corregido y optimizado.
         <h2>Nuestras Presentaciones</h2>
     </div>
 
+    <!-- PRODUCTO 1 -->
     <div class="product-card">
-        <img src="https://qrdigital.github.io/dulcecapitas/imagen1.jpg" class="product-img" alt="Taper de Mini Alfajores">
+        <img src="https://qrdigital.github.io/dulcecapitas/imagen1.jpg">
         <div class="product-content">
             <h3>Taper de Mini Alfajores</h3>
             <p>Perfectos para compartir o calmar el antojo.</p>
@@ -143,8 +131,9 @@ Aquí tienes el código corregido y optimizado.
         </div>
     </div>
 
+    <!-- PRODUCTO 2 -->
     <div class="product-card">
-        <img src="https://qrdigital.github.io/dulcecapitas/imagen2.jpg" class="product-img" alt="Caja de 4 Alfajores">
+        <img src="https://qrdigital.github.io/dulcecapitas/imagen2.jpg">
         <div class="product-content">
             <h3>Caja de 4 Alfajores</h3>
             <p>Tamaño ideal para un detalle especial.</p>
@@ -160,8 +149,9 @@ Aquí tienes el código corregido y optimizado.
         </div>
     </div>
 
+    <!-- PRODUCTO 3 -->
     <div class="product-card">
-        <img src="https://qrdigital.github.io/dulcecapitas/imagen3.jpg" class="product-img" alt="Caja Personalizada">
+        <img src="https://qrdigital.github.io/dulcecapitas/imagen3.jpg">
         <div class="product-content">
             <h3>Caja Personalizada (30x30)</h3>
             <p>Tus alfajores favoritos en gran formato.</p>
@@ -177,8 +167,9 @@ Aquí tienes el código corregido y optimizado.
         </div>
     </div>
 
+    <!-- PRODUCTO 4 -->
     <div class="product-card">
-        <img src="https://qrdigital.github.io/dulcecapitas/imagen4.jpg" class="product-img" alt="Caja de 8 Bombones">
+        <img src="https://qrdigital.github.io/dulcecapitas/imagen4.jpg">
         <div class="product-content">
             <h3>Caja de 8 Bombones</h3>
             <p>Chocolate premium con frutos secos seleccionados.</p>
@@ -188,24 +179,23 @@ Aquí tienes el código corregido y optimizado.
             </div>
         </div>
     </div>
-
-    <div class="section" style="padding: 10px 20px;">
-        <div class="box" style="border: 2px dashed var(--primary); background: #fffcf5; padding: 20px; border-radius: 15px; text-align: center;">
-            <h3 style="margin-top: 0; color: var(--primary);">💼 Pedidos Corporativos</h3>
-            <p style="font-size: 14px; margin-bottom: 15px;">
-                Personalizamos tus empaques con el <strong>sticker de tu logo o marca</strong>. 
-                <br><span style="color: #d84315; font-weight: bold;">Precios especiales por volumen.</span>
-            </p>
-            
-            <a href="https://wa.me/51990582170?text=Hola%20Dulce%20Capitas,%20me%20interesa%20información%20sobre%20pedidos%20personalizados%20para%20mi%20empresa" 
-               target="_blank" 
-               style="display: inline-block; background: var(--text); color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 14px;">
-                Consultar Cotización Pro
-            </a>
-        </div>
+</div>
+<!-- SECCIÓN CORPORATIVA / PERSONALIZADOS -->
+<div class="section" style="padding: 10px 20px;">
+    <div class="box" style="border: 2px dashed var(--primary); background: #fffcf5; padding: 20px; border-radius: 15px; text-align: center;">
+        <h3 style="margin-top: 0; color: var(--primary);">💼 Pedidos Corporativos</h3>
+        <p style="font-size: 14px; margin-bottom: 15px;">
+            Personalizamos tus empaques con el <strong>sticker de tu logo o marca</strong>. 
+            <br><span style="color: #d84315; font-weight: bold;">Precios especiales por volumen.</span>
+        </p>
+        
+        <a href="https://wa.me/51990582170?text=Hola%20Dulce%20Capitas,%20me%20interesa%20información%20sobre%20pedidos%20personalizados%20para%20mi%20empresa" 
+           target="_blank" 
+           style="display: inline-block; background: var(--text); color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 14px;">
+            Consultar Cotización Pro
+        </a>
     </div>
 </div>
-
 <div id="modal-cart">
     <div class="modal-content">
         <h3 style="margin-top:0">Tu Pedido</h3>
@@ -260,5 +250,3 @@ Aquí tienes el código corregido y optimizado.
 </script>
 </body>
 </html>
-
-```
